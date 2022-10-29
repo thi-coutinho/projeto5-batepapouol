@@ -45,11 +45,16 @@ footer{
 footer img{
     height: 26px;
 }
+
+footer img:hover{
+    cursor: pointer;
+}
 .message{
     min-height: 40px;
     background: #FFFFFF;
     border-radius: 2px;
-    display: flex;;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin: 4px 0;
 }
@@ -59,6 +64,10 @@ footer img{
 .message.status{
     background: #DCDCDC;
 }
+/* strong{
+    display:flex;
+    flex-wrap: wrap;
+} */
 .time{
     color: #aaaaaa;
 }
