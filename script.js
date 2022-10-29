@@ -101,6 +101,5 @@ function liMessage(classes, message) {
                     <strong>${message.to}</strong>
                     ${outer+message.text}
                 </span>
-            </li>
-            `;
+            </li>`;
 }

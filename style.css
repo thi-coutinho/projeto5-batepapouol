@@ -65,7 +65,7 @@ footer img:hover{
     background: #DCDCDC;
 }
 strong, span{
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 .time{
     color: #aaaaaa;
