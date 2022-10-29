@@ -31,6 +31,7 @@ function enterRoom() {
     }
     setInterval(keepOnline, 5000)
     // renderiza mensagens
+    getAllMessages()
     setInterval(getAllMessages, 3000);
 
 }
@@ -47,7 +48,7 @@ function sendMessage() {
         from: userName,
         to: "Todos",
         text: text.value,
-        type: "message"
+        type: "private_message"
     }
     axios.post(linkPostMessages, ObjMessage)
         .then(getAllMessages)
@@ -56,36 +57,10 @@ function sendMessage() {
 
 }
 
-/*
-pedir o nome
-
-tenta entrar na sala
-    se sim, blz (talvez postar status)
-        carrega mensagens
-        scrolla pra baixo
-    se não, pede outro nome
-
-colocar botão onclick
-fazer função enviar mensagem
-
-
-*/
-// console.log(codInterval)
-
-
-// setTimeout(clearInterval,10000,codInterval)
-
-// console.log(codInterval)
-
-
-
-
-
 function rendMenssages(resposta) {
     let messages = resposta.data
     // cancel if lastMessage is the same as last call
     if (JSON.stringify(lastMessage) == JSON.stringify(messages[messages.length - 1])) {
-        console.log("não precisa imprimir ");
         return
     }
     // update lastMessage
@@ -100,7 +75,7 @@ function rendMenssages(resposta) {
             classes += messages[i].type === "private_message" ? "private" : "";
             classes += messages[i].type === "status" ? "status" : "";
 
-            ulMessages.innerHTML += liMessage(classes, messages, i)
+            ulMessages.insertAdjacentHTML('beforeend', liMessage(classes, messages[i]))
         }
     }
     document.querySelector(".list-messages li:last-child")
@@ -108,21 +83,24 @@ function rendMenssages(resposta) {
 
 }
 
-function liMessage(classes, messages, i) {
-    let inner = " para ";
+function liMessage(classes, message) {
+    let inner = " para";
     let outer = ": "
     if (classes === "status") {
-        messages[i].to = "";
+        message.to = "";
         inner = "";
         outer = "";
     } else if (classes === "private_message") {
         inner = " reservadamente" + inner
     }
-    return `
-            <li class="message ${classes}">
-                <span class="time">(${messages[i].time})</span>
-                <span class="sender"><strong> ${messages[i].from}</strong>${inner}<strong>${messages[i].to}</strong>${outer}</span>
-                <span class="message-content">${messages[i].text}</span>
+    return `<li class="message ${classes}">
+                <span class="time">(${message.time})</span>
+                <span class="sender">
+                    <strong>${message.from}</strong>
+                    ${inner}
+                    <strong>${message.to}</strong>
+                    ${outer+message.text}
+                </span>
             </li>
             `;
 }

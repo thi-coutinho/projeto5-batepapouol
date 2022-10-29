@@ -53,10 +53,10 @@ footer img:hover{
     min-height: 40px;
     background: #FFFFFF;
     border-radius: 2px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     margin: 4px 0;
+    padding: 15px 0;
+    align-self: center;
+    line-height:20px;
 }
 .message.private{
     background: #FFDEDE;
@@ -64,10 +64,9 @@ footer img:hover{
 .message.status{
     background: #DCDCDC;
 }
-/* strong{
-    display:flex;
-    flex-wrap: wrap;
-} */
+strong, span{
+    word-break: break-all;
+}
 .time{
     color: #aaaaaa;
 }
