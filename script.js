@@ -1,13 +1,18 @@
-const linkGetMessages = "https://mock-api.driven.com.br/api/v6/uol/messages"
-const linkPostMessages = linkGetMessages
-const linkPostJoinServer = "https://mock-api.driven.com.br/api/v6/uol/participants"
-const linkPostStatus = "https://mock-api.driven.com.br/api/v6/uol/status"
+const linkGetMessages = "https://mock-api.driven.com.br/api/v6/uol/messages";
+const linkPostMessages = linkGetMessages;
+const linkPostJoinServer = "https://mock-api.driven.com.br/api/v6/uol/participants";
+const linkGetParticipants = linkPostJoinServer;
+const linkPostStatus = "https://mock-api.driven.com.br/api/v6/uol/status";
+const painelNav = document.querySelector("nav");
+let contact = "Todos";
+let visibility = "message";
+let contactLiSelected = document.querySelector('.list-participants .selected')
+let visibilityLiSelected = document.querySelector('.visibility .selected')
 let lastMessage; // para conferir se precisa recarregar a página
 let userName;
 let user;
 let pergunta = "Qual o seu lindo nome?";
 let to = "Todos";
-
 function perguntaNome(response) {
     userName = prompt(pergunta)
     pergunta = "Por favor digite outro nome, pois este já está em uso"
@@ -33,6 +38,10 @@ function enterRoom() {
     // renderiza mensagens
     getAllMessages()
     setInterval(getAllMessages, 3000);
+    getAllParticipants()
+    setInterval(getAllParticipants, 10000);
+
+
 
 }
 
@@ -42,13 +51,36 @@ function getAllMessages() {
         .catch(console.log);
 }
 
+function getAllParticipants() {
+    axios.get(linkGetParticipants)
+        .then(rendParticipants)
+        .catch(console.log);
+}
+
+function rendParticipants(response) {
+    let participants = response.data
+    const ulParticipants = document.querySelector(".list-participants")
+    let stringLiContact = JSON.stringify(contactLiSelected)
+    ulParticipants.innerHTML = stringLiContact
+    if (contactLiSelected.innerText !== "Todos"){
+        ulParticipants.innerHTML = liParticipants("Todos")
+    }
+    
+    for (let i = 0; i < participants.length; i++) {
+        if(participants[i].name !== userName && participants[i].name !== contact ){
+
+        ulParticipants.innerHTML += liParticipants(participants[i].name)
+    }
+    }
+}
+
 function sendMessage() {
     let text = document.querySelector("input");
     let ObjMessage = {
         from: userName,
-        to: "Todos",
+        to: contact,
         text: text.value,
-        type: "private_message"
+        type: visibility
     }
     axios.post(linkPostMessages, ObjMessage)
         .then(getAllMessages)
@@ -69,7 +101,7 @@ function rendMenssages(resposta) {
 
 
     for (let i = 0; i < messages.length; i++) {
-        if (messages[i].to === "Todos" || messages[i].to === userName) {
+        if (messages[i].to === "Todos" || messages[i].to === userName || messages[i].from === userName) {
             let classes = "";
 
             classes += messages[i].type === "private_message" ? "private" : "";
@@ -90,7 +122,7 @@ function liMessage(classes, message) {
         message.to = "";
         inner = "";
         outer = "";
-    } else if (classes === "private_message") {
+    } else if (classes === "private") {
         inner = " reservadamente" + inner
     }
     return `<li class="message ${classes}">
@@ -99,7 +131,34 @@ function liMessage(classes, message) {
                     <strong>${message.from}</strong>
                     ${inner}
                     <strong>${message.to}</strong>
-                    ${outer+message.text}
+                    ${outer + message.text}
                 </span>
             </li>`;
+}
+function liParticipants(participant) {
+    return `<li onclick="selectParticipants(this)">
+                        <div> <img src="./assets/people.svg" alt="">
+                            ${participant}
+                        </div>
+                        <img src="./assets/checkmark.svg" alt="">
+            </li>`
+}
+function painelShow(element) {
+    if (element.parentNode.classList.contains("sidebar")) return
+    painelNav.classList.toggle("escondido")
+}
+
+function selectVisibility(element) {
+    if (element.classList.contains("selected")) return
+    visibilityLiSelected.classList.toggle("selected")
+    element.classList.toggle("selected")
+    visibilityLiSelected = element
+    visibility = (visibility === "message")? "private_message" : "message"
+}
+
+function selectParticipants(element) {
+    contactLiSelected.classList.remove("selected")
+    element.classList.add("selected")
+    contactLiSelected = document.querySelector('.list-participants .selected')
+    contact = element.innerText.trim()
 }

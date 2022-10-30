@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,20 +9,56 @@
     <link rel="stylesheet" href="style.css">
     <title>Bate Papo UOL</title>
 </head>
+
 <body>
     <header>
         <img src="./assets/logo 1.png" alt="logo" class="logo">
-        <img src="./assets/people.svg" alt="">
+        <img onclick="painelShow(this)" src="./assets/people.svg" alt="">
     </header>
+    <nav onclick="painelShow(this)" class="escondido">
+        <div onclick="painelShow(this)" class="sidebar">
+            <div class="text">Escolha um contato para enviar mensagem:</div>
+            <div>
+                <ul class="list-participants">
+                    <li onclick="selectParticipants(this)" class="selected">
+                        <div> <img src="./assets/people.svg" alt="">
+                            Todos
+                        </div>
+                        <img src="./assets/checkmark.svg" alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="text" >Escolha a visibilidade:</div>
+            <div>
+                <ul class="visibility">
+                    <li onclick="selectVisibility(this)" class="selected">
+                        <div>
+                            <img src="./assets/lock-open.svg" alt="">
+                            Público    
+                        </div>
+                        <img src="./assets/checkmark.svg" alt="">
+                    </li>
+                    <li onclick="selectVisibility(this)">
+                        <div>
+                            <img src="./assets/lock-closed.svg" alt="">
+                            Reservado    
+                        </div>
+                        <img src="./assets/checkmark.svg" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <main>
         <ul class="list-messages">
         </ul>
     </main>
     <footer>
-        <input type="text" placeholder="Escreva aqui..." >
+        <input type="text" placeholder="Escreva aqui...">
         <img onclick="sendMessage()" src="./assets/paper-plane-outline.svg" alt="">
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
 </body>
+
 </html>
