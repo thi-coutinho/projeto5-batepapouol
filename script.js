@@ -13,28 +13,27 @@ let visibilityLiSelected = document.querySelector('.visibility .selected');
 let lastMessage; // para conferir se precisa recarregar a página
 let userName;
 let user;
-let pergunta = "Qual o seu lindo nome?";
 
 
-function perguntaNome() {
-    userName = prompt(pergunta)
-    if(userName ==="Todos"){
-        pergunta = "Por favor digite outro nome, pois este é inválido";
-        perguntaNome()
+function perguntaNome(key) {
+    if (key === undefined || key.key === "Enter") {
+        userName = document.querySelector(".telaInicial input").value
+        if (userName.trim().toLowerCase() === "todos") {
+            alert("Por favor digite outro nome, pois este é inválido")
+        }
+        user = { name: userName }
+        axios.post(linkPostJoinServer, user)
+            .then(enterRoom)
+            .catch(alertaNomeUsado)
     }
-    pergunta = "Por favor digite outro nome, pois este já está em uso";
-    user = { name: userName }
-    axios.post(linkPostJoinServer, user)
-        .then(enterRoom)
-        .catch(perguntaNome)
-    // console.log(response)
 }
 
-perguntaNome()
-
+function alertaNomeUsado() {
+    alert("Por favor digite outro nome, pois este já está em uso")
+}
 
 function enterRoom() {
-
+    document.querySelector(".telaInicial").classList.add("escondido")
     // mantem conexão
     function keepOnline() {
         axios.post(linkPostStatus, user)
@@ -83,18 +82,18 @@ function rendParticipants(response) {
 }
 
 function sendMessage(key) {
-    if (key === undefined || key.key === "Enter" ) {
-    let text = document.querySelector("input");
-    let ObjMessage = {
-        from: userName,
-        to: contact,
-        text: text.value,
-        type: visibility
-    }
-    axios.post(linkPostMessages, ObjMessage)
-        .then(getAllMessages)
-        .catch(window.location.reload)
-    text.value = ""
+    if (key === undefined || key.key === "Enter") {
+        let text = document.querySelector("footer input");
+        let ObjMessage = {
+            from: userName,
+            to: contact,
+            text: text.value,
+            type: visibility
+        }
+        axios.post(linkPostMessages, ObjMessage)
+            .then(getAllMessages)
+            .catch(window.location.reload)
+        text.value = ""
     }
 
 }

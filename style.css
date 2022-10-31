@@ -2,86 +2,146 @@
 
 * {
     box-sizing: border-box;
-  }
-body{
+}
+
+body {
     max-width: 475px;
     font-family: 'Roboto', sans-serif;
-    font-size:14px;
-    position:absolute;
-    margin:0 auto;
-    background-color:#f3f3f3;
+    font-size: 14px;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #f3f3f3;
 }
-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:475px;
-    height:100%;
-    z-index: 2;
-    background-color:rgba(0, 0, 0, 0.6)
 
-}
-.escondido{
-    display:none;
-}
-.sidebar{
-    position:absolute;
+.telaInicial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     background-color: white;
-    top:0;
-    right:0;
-    width:400px;
-    height:100%;
-    z-index: 3;
-    overflow-y:scroll;
-    overflow-x:hidden;
+    width: 475px;
+    height: 100%;
+    z-index: 4;
 }
-.sidebar .text{
-    height:84px;
+
+button {
+    color: #696969;
+    font-size: 18px;
+    border: none;
+    width: 109px;
+    height: 45px;
+    background: #E7E7E7;
+    border-radius: 9px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.telaInicial img {
+    width: 130px;
+    height: 92px;
+    margin: 94px 0;
+}
+
+.telaInicial input {
+    width: 261px;
+    height: 54px;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.telaInicial input::placeholder {
+    font-size: 18px;
+    line-height: 21px;
+    height: 21px;
+    text-align: center;
+}
+
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 475px;
+    height: 100%;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.6)
+}
+
+.escondido {
+    display: none;
+}
+
+.sidebar {
+    position: absolute;
+    background-color: white;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100%;
+    z-index: 3;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.sidebar .text {
+    height: 84px;
     font-weight: 700;
     font-size: 16px;
-    line-height:25px;
+    line-height: 25px;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     flex-wrap: wrap;
-    align-items:center;
+    align-items: center;
 }
-.sidebar ul{
-    width:400px;
-    height:auto;
-    display:flex;
+
+.sidebar ul {
+    width: 400px;
+    height: auto;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     font-weight: 400;
     font-size: 16px;
     padding: 0 20px;
     align-items: start;
+
 }
-.sidebar *{
+
+.sidebar * {
     margin: 3px 0;
-    /* background-color: aquamarine; */
     vertical-align: middle;
-    line-height:30px;
+    line-height: 30px;
     margin-right: 5px;
 }
-.sidebar ul li{
+
+.sidebar ul li {
     width: 330px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
-.selected .checkmark{
+
+.selected .checkmark {
     opacity: 1;
 }
 
-.checkmark{
+.checkmark {
     opacity: 0;
 }
 
 
-header, footer{
+header,
+footer {
     z-index: 1;
     background-color: white;
-    width:475px;
+    width: 475px;
     height: 80px;
     position: fixed;
     left: 0;
@@ -90,76 +150,92 @@ header, footer{
     padding: 0 22px;
     align-items: center;
 }
-header{
+
+header {
     top: 0;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
-header img:nth-child(2){
+
+header img:nth-child(2) {
     height: 40px;
 }
 
-main{
-    width:475px;
+main {
+    width: 475px;
     padding: 106px 0;
     position: relative;
 }
 
-footer{
+footer {
     bottom: 0;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05)
 }
-footer img{
+
+footer img {
     height: 26px;
 }
 
-footer img:hover{
+footer img:hover {
     cursor: pointer;
 }
-.message{
+
+.message {
     min-height: 40px;
     background: #FFFFFF;
     border-radius: 2px;
     margin: 4px 0;
-    padding: 15px 0;
+    padding: 15px 5px;
     align-self: center;
-    line-height:20px;
+    line-height: 20px;
 }
-.message.private{
+
+.message.private {
     background: #FFDEDE;
 }
-.message.status{
+
+.message.status {
     background: #DCDCDC;
 }
-strong, span{
+
+strong,
+span {
     overflow-wrap: break-word;
 }
-.time{
+
+.time {
     color: #aaaaaa;
 }
-strong{
+
+strong {
     font-weight: 700;
 }
-img{
-    height:21px;
+
+img {
+    height: 21px;
 }
-.logo{
-    height:53px;
+
+.logo {
+    height: 53px;
 }
-.message *{
+
+.message * {
     margin-left: 5px;
 }
-input{
-    border:none;
+
+input {
+    border: none;
     width: 90%;
     height: 25px;
-    font-size:18px; 
+    font-size: 18px;
 }
-input::placeholder{
+
+input::placeholder {
     font-size: 18px;
     line-height: 21px;
     border: none;
     height: 21px;
 }
-input:focus{
+
+input:focus {
     outline: none;
 }
