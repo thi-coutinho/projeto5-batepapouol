@@ -82,7 +82,8 @@ function rendParticipants(response) {
     }
 }
 
-function sendMessage() {
+function sendMessage(key) {
+    if (key === undefined || key.key === "Enter" ) {
     let text = document.querySelector("input");
     let ObjMessage = {
         from: userName,
@@ -94,6 +95,7 @@ function sendMessage() {
         .then(getAllMessages)
         .catch(window.location.reload)
     text.value = ""
+    }
 
 }
 
@@ -177,8 +179,6 @@ function selectParticipants(element) {
     } else {
         todosLi.classList.add("selected")
         contactLiSelected.classList.remove("selected")
-        console.log(contactLiSelected.outerHTML)
-        console.log(document.querySelector(".list-participants li").outerHTML)
         contact = "Todos"
     }
 }
