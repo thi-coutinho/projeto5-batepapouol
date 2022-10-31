@@ -6,16 +6,23 @@ const linkPostStatus = "https://mock-api.driven.com.br/api/v6/uol/status";
 const painelNav = document.querySelector("nav");
 let contact = "Todos";
 let visibility = "message";
-let contactLiSelected = document.querySelector('.list-participants .selected')
-let visibilityLiSelected = document.querySelector('.visibility .selected')
+let responseParticipants;
+let todosLi = document.querySelector('.list-participants li');
+let contactLiSelected = document.querySelector('.list-participants li');
+let visibilityLiSelected = document.querySelector('.visibility .selected');
 let lastMessage; // para conferir se precisa recarregar a página
 let userName;
 let user;
 let pergunta = "Qual o seu lindo nome?";
-let to = "Todos";
-function perguntaNome(response) {
+
+
+function perguntaNome() {
     userName = prompt(pergunta)
-    pergunta = "Por favor digite outro nome, pois este já está em uso"
+    if(userName ==="Todos"){
+        pergunta = "Por favor digite outro nome, pois este é inválido";
+        perguntaNome()
+    }
+    pergunta = "Por favor digite outro nome, pois este já está em uso";
     user = { name: userName }
     axios.post(linkPostJoinServer, user)
         .then(enterRoom)
@@ -58,19 +65,20 @@ function getAllParticipants() {
 }
 
 function rendParticipants(response) {
-    let participants = response.data
-    const ulParticipants = document.querySelector(".list-participants")
-    let stringLiContact = JSON.stringify(contactLiSelected)
-    ulParticipants.innerHTML = stringLiContact
-    if (contactLiSelected.innerText !== "Todos"){
-        ulParticipants.innerHTML = liParticipants("Todos")
+    responseParticipants = response
+    let participants = responseParticipants.data
+    let ulParticipants = document.querySelector(".list-participants");
+    todosLi = ulParticipants.querySelector("li")
+    ulParticipants.innerHTML = todosLi.outerHTML
+    if (contactLiSelected.innerText.trim() !== "Todos") {
+        ulParticipants.innerHTML += contactLiSelected.outerHTML
     }
-    
-    for (let i = 0; i < participants.length; i++) {
-        if(participants[i].name !== userName && participants[i].name !== contact ){
 
-        ulParticipants.innerHTML += liParticipants(participants[i].name)
-    }
+    for (let i = 0; i < participants.length; i++) {
+        if (participants[i].name !== userName && participants[i].name !== contact) {
+
+            ulParticipants.innerHTML += liParticipants(participants[i].name)
+        }
     }
 }
 
@@ -137,10 +145,10 @@ function liMessage(classes, message) {
 }
 function liParticipants(participant) {
     return `<li onclick="selectParticipants(this)">
-                        <div> <img src="./assets/people.svg" alt="">
+                        <div> <img src="./assets/person-circle-outline.svg" alt="">
                             ${participant}
                         </div>
-                        <img src="./assets/checkmark.svg" alt="">
+                        <img class="checkmark" src="./assets/checkmark.svg" alt="">
             </li>`
 }
 function painelShow(element) {
@@ -153,12 +161,24 @@ function selectVisibility(element) {
     visibilityLiSelected.classList.toggle("selected")
     element.classList.toggle("selected")
     visibilityLiSelected = element
-    visibility = (visibility === "message")? "private_message" : "message"
+    visibility = (visibility === "message") ? "private_message" : "message"
 }
 
 function selectParticipants(element) {
-    contactLiSelected.classList.remove("selected")
-    element.classList.add("selected")
+    if (element.innerText.trim() === contactLiSelected.innerText.trim()) { return }
+    todosLi = document.querySelector('.list-participants li')
     contactLiSelected = document.querySelector('.list-participants .selected')
-    contact = element.innerText.trim()
+    if (element.innerText.trim() !== "Todos") {
+        todosLi.classList.remove("selected");
+        contactLiSelected.classList.remove("selected")
+        element.classList.add("selected")
+        contactLiSelected = element
+        contact = element.innerText.trim()
+    } else {
+        todosLi.classList.add("selected")
+        contactLiSelected.classList.remove("selected")
+        console.log(contactLiSelected.outerHTML)
+        console.log(document.querySelector(".list-participants li").outerHTML)
+        contact = "Todos"
+    }
 }

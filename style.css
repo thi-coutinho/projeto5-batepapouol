@@ -68,13 +68,14 @@ nav{
     justify-content: space-between;
     align-items: center;
 }
+.selected .checkmark{
+    opacity: 1;
+}
 
-.sidebar li img:nth-child(2){
-    display: none;
+.checkmark{
+    opacity: 0;
 }
-.sidebar .selected img:nth-child(2){
-    display: block;
-}
+
 
 header, footer{
     z-index: 1;
