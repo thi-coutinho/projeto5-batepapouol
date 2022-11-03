@@ -15,8 +15,8 @@
         <div>
             <img src="./assets/logo 1.png" alt="logo" class="logo">
         </div>
-        <input type="text" onkeydown="perguntaNome(event)" placeholder="Digite seu nome">
-        <button onclick="perguntaNome()">Entrar</button>
+        <input data-test="input-name" type="text" onkeydown="perguntaNome(event)" placeholder="Digite seu nome">
+        <button data-test="send-name" onclick="perguntaNome()">Entrar</button>
 
     </div>
     <div class="telaInicial loading escondido">
@@ -30,38 +30,38 @@
     </div>
     <header>
         <img src="./assets/logo 1.png" alt="logo" class="logo">
-        <img onclick="painelShow(this)" src="./assets/people.svg" alt="">
+        <img data-test="open-participants" onclick="painelShow(this)" src="./assets/people.svg" alt="">
     </header>
     <nav onclick="painelShow(this)" class="escondido">
         <div onclick="painelShow(this)" class="sidebar">
             <div class="text">Escolha um contato para enviar mensagem:</div>
             <div>
                 <ul class="list-participants">
-                    <li onclick="selectParticipants(this)" class="selected">
+                    <li data-test="all" onclick="selectParticipants(this)" class="selected">
                         <div>
                             <img src="./assets/people.svg" alt="">
                             Todos
                         </div>
-                        <img class="checkmark" src="./assets/checkmark.svg" alt="">
+                        <img data-test="check" class="checkmark" src="./assets/checkmark.svg" alt="">
                     </li>
                 </ul>
             </div>
             <div class="text" >Escolha a visibilidade:</div>
             <div>
                 <ul class="visibility">
-                    <li onclick="selectVisibility(this)" class="selected">
+                    <li data-test="public" onclick="selectVisibility(this)" class="selected">
                         <div>
                             <img src="./assets/lock-open.svg" alt="">
                             Público    
                         </div>
-                        <img class="checkmark" src="./assets/checkmark.svg" alt="">
+                        <img data-test="check" class="checkmark" src="./assets/checkmark.svg" alt="">
                     </li>
-                    <li onclick="selectVisibility(this)">
+                    <li data-test="private" onclick="selectVisibility(this)">
                         <div>
                             <img src="./assets/lock-closed.svg" alt="">
                             Reservado    
                         </div>
-                        <img class="checkmark" src="./assets/checkmark.svg" alt="">
+                        <img data-test="check" class="checkmark" src="./assets/checkmark.svg" alt="">
                     </li>
                 </ul>
             </div>
@@ -72,8 +72,8 @@
         </ul>
     </main>
     <footer>
-        <input type="text" onkeydown="sendMessage(event)" placeholder="Escreva aqui...">
-        <img onclick="sendMessage()" src="./assets/paper-plane-outline.svg" alt="">
+        <input data-test="input-message" type="text" onkeydown="sendMessage(event)" placeholder="Escreva aqui...">
+        <img data-test="send-message" onclick="sendMessage()" src="./assets/paper-plane-outline.svg" alt="">
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>

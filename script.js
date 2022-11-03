@@ -147,7 +147,7 @@ function liMessage(classes, message) {
     } else if (classes === "private") {
         inner = " reservadamente" + inner;
     }
-    return `<li class="message ${classes}">
+    return `<li data-test="message" class="message ${classes}">
                 <span class="time">(${message.time})</span>
                 <span class="sender">
                     <strong>${message.from}</strong>
@@ -158,11 +158,11 @@ function liMessage(classes, message) {
             </li>`;
 }
 function liParticipants(participant) {
-    return `<li onclick="selectParticipants(this)">
+    return `<li  data-test="participant" onclick="selectParticipants(this)">
                         <div> <img src="./assets/person-circle-outline.svg" alt="">
                             ${participant}
                         </div>
-                        <img class="checkmark" src="./assets/checkmark.svg" alt="">
+                        <img data-test="check" class="checkmark" src="./assets/checkmark.svg" alt="">
             </li>`;
 }
 function painelShow(element) {
