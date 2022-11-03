@@ -103,10 +103,15 @@ function sendMessage(key) {
         };
         axios.post(linkPostMessages, ObjMessage)
             .then(getAllMessages)
-            .catch(window.location.reload);
+            .catch(erroEnvioMensagem);
         text.value = "";
     }
 
+}
+
+function erroEnvioMensagem(response){
+    console.log(response)
+    window.location.reload()
 }
 
 function rendMenssages(resposta) {
